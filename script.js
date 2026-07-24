@@ -96,5 +96,25 @@ document.getElementById('btn-closed').addEventListener("click", () => {
   
 });
 
+loadAllIssue()
+document.getElementById('search-btn').addEventListener('click', () => {
+  const input = document.getElementById('input');
+  const inputValue = input.value.trim().toLowerCase();
+  console.log(inputValue);
 
-loadAllIssue();
+  const issuesFilter = allIssues.filter((issue) => {
+    const titleMatch = issue.title?.toLowerCase().includes(inputValue);
+    const decMatch = issue.description?.toLowerCase().includes(inputValue);
+    const statusMatch = issue.status?.toLowerCase().includes(inputValue);
+    const priorityMatch = issue.priority?.toLowerCase().includes(inputValue);
+    const autMatch = issue.author?.toLowerCase().includes(inputValue);
+    const labelMatch = issue.labels?.some((label) => label.toLowerCase().includes(inputValue));
+    return titleMatch || decMatch || statusMatch || priorityMatch || autMatch || labelMatch;
+
+  })
+  const totalIssue = document.getElementById('total-issues');
+  totalIssue.innerText = `${issuesFilter.length} Issues`
+      displayAllIssue(issuesFilter);
+});
+
+
