@@ -26,6 +26,7 @@ const labelColour = (label) => {
   return 'bg-red-100 text-red-500';
 }
 const displayAllIssue = (issues) => {
+  manageSpinner(false);
   const issuesContainer = document.getElementById('issues-container');
   issuesContainer.innerHTML = "";
   issues.forEach((data) => {
@@ -52,19 +53,46 @@ const displayAllIssue = (issues) => {
   })
   
 }
+const manageSpinner = (load) => {
+  if (load == true) {
+    document.getElementById('loading').classList.remove('hidden');
+    document.getElementById('issues-container').classList.add('hidden');
+
+  } else {
+    document.getElementById('issues-container').classList.remove('hidden');
+    document.getElementById('loading').classList.add('hidden')
+  }
+}
 document.getElementById('btn-all').addEventListener("click", () => {
+  manageSpinner(true);
+  setTimeout(() => {
+    const totalAll = document.getElementById('total-issues');
+  totalAll.innerText = `50 Issues`;
   displayAllIssue(allIssues);
+  
+    
+  },300);
 
 });
 document.getElementById('btn-open').addEventListener("click", () => {
-  const openBtn = allIssues.filter((issues) => issues.status !== 'closed');
+  manageSpinner(true);
+  setTimeout(() => {
+    const openBtn = allIssues.filter((issues) => issues.status !== 'closed');
+  const totalOpen = document.getElementById('total-issues');
+  totalOpen.innerText=`44 Issues`
   displayAllIssue(openBtn);
   
+  }, 300);
 });
 document.getElementById('btn-closed').addEventListener("click", () => {
-  const closedBtn = allIssues.filter((closed) => closed.status !== 'open');
+  manageSpinner(true);
+  setTimeout(() => {
+    const closedBtn = allIssues.filter((closed) => closed.status !== 'open');
+  const totalClosed = document.getElementById('total-issues');
+  totalClosed.innerText=`6 Issues`
 
   displayAllIssue(closedBtn);
+ },300)
   
 });
 
