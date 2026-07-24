@@ -32,7 +32,7 @@ const displayAllIssue = (issues) => {
   issues.forEach((data) => {
     const issueDiv = document.createElement('div');
     issueDiv.innerHTML = `
-     <div class="px-5 bg-[#FFFFFF] rounded-lg"> 
+     <div class="px-5 bg-[#FFFFFF] rounded-lg border-t-4 ${data.status === 'open'? 'border-green-300':'border-purple-300'}"> 
         <div class="flex justify-between mb-5 pt-5">
           <img src="${data.status === 'open' ? 'assets/Open-Status.png' : 'assets/Closed- Status .png'}" alt="" class="w-10 h-10 shrink-0">
           <h1 class="py-2 px-4 rounded-full ${getPriorityBadge(data.priority)}">${data.priority}</h1>
